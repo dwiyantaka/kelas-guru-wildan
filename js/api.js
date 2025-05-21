@@ -4,7 +4,7 @@
 // Replace with your deployed Google Apps Script web app URL
 // THIS MUST MATCH YOUR LATEST DEPLOYMENT URL FROM THE UPDATED SCRIPT
 // THAT USES THE SPREADSHEET ID: 1aJUpU96xdSkSeypE-x7sJJku6pSr3vgC6aL1hF15wNQ
-const API_URL = 'https://script.google.com/macros/s/URL_DEPLOYMENT/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycby24TCZQh35G-CTZDbv-p9TEo7nanmP8OuNuw93jsCraBkuxLFoexIYtr-KHACDdcI/exec';
 
 // You may need to update this URL after deploying your updated script
 // Follow these steps:
