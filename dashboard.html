@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KelasGuru</title>
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjU2IDU2TDU2IDE2Mi41VjE4NEwyNTYgMjkwLjVMNDU2IDE4NFYxNjIuNUwyNTYgNTZaIiBmaWxsPSIjMzY4NWZmIi8+PHBhdGggZD0iTTQ1NiAyMDhMNDEzIDIyOFYzMTBDMzkwLjUgMzQ0LjUgMzUxIDM3NiAyNTYgMzc2QzE2MSAzNzYgMTIxLjUgMzQ0LjUgOTkgMzEwVjIyOEw1NiAyMDhWMzM2Qzg3LjUgMzkwLjUgMTU4IDQ1NiAyNTYgNDU2QzM1NCA0NTYgNDI0LjUgMzkwLjUgNDU2IDMzNlYyMDhaIiBmaWxsPSIjMzY4NWZmIi8+PHBhdGggZD0iTTM2OCAyNDJWMzA2LjVMMzk2IDI4MlYyMjNMMzY4IDI0MloiIGZpbGw9IiMzNjg1ZmYiLz48cGF0aCBkPSJNMTY5IDIzMkwxNTEgMjI4LjVMMTQzIDI1MkwxNjAgMjUwTDE2OSAyMzJaIiBzdHJva2U9IiMzNjg1ZmYiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTE2OSAyMzJMMjI1IDI0NUwyOTYgMjQwLjVMMzQwIDIxMiIgc3Ryb2tlPSIjMzY4NWZmIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="shadcn-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+        
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --popover: 222.2 84% 4.9%;
+            --popover-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+        
+        * {
+            @apply border-border;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Skeleton loading animation */
+        .skeleton {
+            animation: skeleton-loading 1.5s linear infinite alternate;
+            border-radius: 0.25rem;
+        }
+        
+        @keyframes skeleton-loading {
+            0% {
+                background-color: hsl(var(--muted));
+            }
+            100% {
+                background-color: hsl(var(--accent));
+            }
+        }
+        
+        /* Card styling */
+        .shadcn-card {
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            background-color: hsl(var(--card));
+            color: hsl(var(--card-foreground));
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .stat-card {
+            transition: all 0.2s ease-in-out;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            font-weight: 500;
+            line-height: 1;
+            font-size: 0.75rem;
+            height: 1.25rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            white-space: nowrap;
+        }
+        
+        .badge-secondary {
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+        }
+        
+        /* Button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            line-height: 1;
+            height: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-ghost {
+            background-color: transparent;
+            color: hsl(var(--primary));
+        }
+        
+        .btn-ghost:hover {
+            background-color: hsl(var(--accent));
+        }
+        
+        /* Improved scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: hsl(var(--muted));
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: hsl(var(--muted-foreground) / 0.4);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: hsl(var(--muted-foreground) / 0.6);
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar container -->
+        <div id="sidebar-container" class="w-64 bg-card shrink-0 hidden md:block"></div>
+        
+        <!-- Main container -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header container -->
+            <div id="header-container"></div>
+            
+            <!-- Content container -->
+            <div class="flex-1 overflow-auto p-4 md:p-6">
+                <div class="space-y-2 mb-6">
+                    <h2 class="text-2xl font-medium tracking-tight">Dashboard</h2>
+                    <p class="text-sm text-muted-foreground">Selamat datang di panel administrasi guru Anda</p>
+                </div>
+                
+                <!-- Dashboard tabs for lazy loading -->
+                <div class="border-b mb-6">
+                    <div class="flex flex-wrap -mb-px">
+                        <button class="lazy-tab mr-2 inline-block p-4 border-b-2 rounded-t-lg text-foreground hover:text-primary hover:border-primary transition-colors" data-tab-id="dashboard-overview" data-active="true">
+                            Overview
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Dashboard content sections -->
+                <div id="dashboard-overview" class="lazy-tab-content">
+                    <!-- Dashboard stats grid -->
+                    <div class="dashboard-grid mb-6">
+                    <!-- Class Count -->
+                        <div class="stat-card shadcn-card">
+                            <div class="p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-blue-100 p-2 rounded-full">
+                                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </div>
+                                        <h3 class="text-base font-medium">Kelas</h3>
+                                    </div>
+                                    <span class="badge badge-secondary">Total</span>
+                        </div>
+                                <div id="kelas-count-skeleton" class="skeleton h-8 w-16 mb-3"></div>
+                                <div id="kelas-count-container" class="hidden">
+                        <div class="text-3xl font-bold mb-2" id="kelas-count">-</div>
+                                </div>
+                                <a href="classes.html" class="text-sm text-primary hover:underline flex items-center mt-3 transition-colors">
+                            Lihat semua kelas
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                            </div>
+                    </div>
+                    
+                    <!-- Student Count -->
+                        <div class="stat-card shadcn-card">
+                            <div class="p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-green-100 p-2 rounded-full">
+                                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                            </div>
+                                        <h3 class="text-base font-medium">Siswa</h3>
+                                    </div>
+                                    <span class="badge badge-secondary">Total</span>
+                        </div>
+                                <div id="siswa-count-skeleton" class="skeleton h-8 w-16 mb-3"></div>
+                                <div id="siswa-count-container" class="hidden">
+                        <div class="text-3xl font-bold mb-2" id="siswa-count">-</div>
+                                </div>
+                                <a href="students.html" class="text-sm text-primary hover:underline flex items-center mt-3 transition-colors">
+                            Lihat semua siswa
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                            </div>
+                    </div>
+                    
+                    <!-- Assignment Count -->
+                        <div class="stat-card shadcn-card">
+                            <div class="p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-purple-100 p-2 rounded-full">
+                                            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                                        <h3 class="text-base font-medium">Tugas</h3>
+                                    </div>
+                                    <span class="badge badge-secondary">Total</span>
+                        </div>
+                                <div id="tugas-count-skeleton" class="skeleton h-8 w-16 mb-3"></div>
+                                <div id="tugas-count-container" class="hidden">
+                        <div class="text-3xl font-bold mb-2" id="tugas-count">-</div>
+                                </div>
+                                <a href="assignments.html" class="text-sm text-primary hover:underline flex items-center mt-3 transition-colors">
+                            Lihat semua tugas
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/sidebar-fix.js"></script>
+    <script src="js/pagination.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize layout
+            initLayout();
+            updatePageTitle('Dashboard');
+            
+            // Add custom styling for active tabs
+            const tabStyle = document.createElement('style');
+            tabStyle.textContent = `
+                .lazy-tab {
+                    border-bottom-color: transparent;
+                    color: hsl(var(--muted-foreground));
+                    transition: color 0.3s, border-color 0.3s;
+                }
+                
+                .lazy-tab:hover {
+                    color: hsl(var(--foreground));
+                    border-bottom-color: hsl(var(--muted-foreground));
+                }
+                
+                .lazy-tab[data-active="true"] {
+                    color: hsl(var(--primary)) !important;
+                    border-bottom-color: hsl(var(--primary)) !important;
+                    font-weight: 600;
+                }
+                
+                .lazy-tab[data-active="false"] {
+                    border-bottom-color: transparent;
+                }
+            `;
+            document.head.appendChild(tabStyle);
+            
+            // Initialize tabs for lazy loading
+            const lazyTabs = new LazyTabs({
+                tabsSelector: '.lazy-tab',
+                contentSelector: '.lazy-tab-content',
+                onTabChange: loadTabContent
+            });
+            
+            // Load data in parallel for better performance
+            try {
+                await loadStatistics();
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showToast('error', 'Terjadi kesalahan saat memuat data dashboard');
+            }
+        });
+        
+        // Load statistics data (kelas, siswa, tugas)
+        async function loadStatistics() {
+            try {
+                // Create an array of promises for all API calls
+                const promises = [
+                    getKelas(),      // Use function from api.js
+                    getSiswa(),      // Use function from api.js
+                    getTugas()       // Use function from api.js
+                ];
+                
+                // Wait for all promises to resolve
+                const [kelasResponse, siswaResponse, tugasResponse] = await Promise.all(promises);
+                
+                // Update class count
+                if (kelasResponse.success) {
+                    document.getElementById('kelas-count').textContent = kelasResponse.data.length;
+                    document.getElementById('kelas-count-skeleton').classList.add('hidden');
+                    document.getElementById('kelas-count-container').classList.remove('hidden');
+                }
+                
+                // Update student count
+                if (siswaResponse.success) {
+                    document.getElementById('siswa-count').textContent = siswaResponse.data.length;
+                    document.getElementById('siswa-count-skeleton').classList.add('hidden');
+                    document.getElementById('siswa-count-container').classList.remove('hidden');
+                }
+                
+                // Update assignment count
+                if (tugasResponse.success) {
+                    document.getElementById('tugas-count').textContent = tugasResponse.data.length;
+                    document.getElementById('tugas-count-skeleton').classList.add('hidden');
+                    document.getElementById('tugas-count-container').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+                
+                // Show error in counters
+                document.getElementById('kelas-count').textContent = '-';
+                document.getElementById('siswa-count').textContent = '-';
+                document.getElementById('tugas-count').textContent = '-';
+                
+                // Hide skeletons
+                document.getElementById('kelas-count-skeleton').classList.add('hidden');
+                document.getElementById('siswa-count-skeleton').classList.add('hidden');
+                document.getElementById('tugas-count-skeleton').classList.add('hidden');
+                
+                // Show containers
+                document.getElementById('kelas-count-container').classList.remove('hidden');
+                document.getElementById('siswa-count-container').classList.remove('hidden');
+                document.getElementById('tugas-count-container').classList.remove('hidden');
+            }
+        }
+        
+        // Simplified toast notification
+        function showToast(type, message) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 p-4 rounded-md shadow-lg ${type === 'error' ? 'bg-destructive text-destructive-foreground' : 'bg-primary text-primary-foreground'} max-w-xs z-50 text-sm`;
+            toast.innerHTML = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Load content based on active tab
+        function loadTabContent(tabId) {
+            console.log(`Loading content for tab: ${tabId}`);
+            
+            switch(tabId) {
+                case 'dashboard-overview':
+                    loadOverviewData();
+                    break;
+            }
+        }
+        
+        // Load overview data (stats)
+        function loadOverviewData() {
+            // Load class count if not already loaded
+            if (document.getElementById('kelas-count').textContent === '-') {
+                loadClassCount();
+            }
+            
+            // Load student count if not already loaded
+            if (document.getElementById('siswa-count').textContent === '-') {
+                loadStudentCount();
+            }
+            
+            // Load assignment count if not already loaded
+            if (document.getElementById('tugas-count').textContent === '-') {
+                loadAssignmentCount();
+            }
+        }
+        
+        // Load class count with lazy loading
+        async function loadClassCount() {
+            try {
+                const response = await getKelas();
+                if (response.success) {
+                    document.getElementById('kelas-count').textContent = response.data.length;
+                    document.getElementById('kelas-count-skeleton').classList.add('hidden');
+                    document.getElementById('kelas-count-container').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading class count:', error);
+                document.getElementById('kelas-count').textContent = 'Error';
+                document.getElementById('kelas-count-skeleton').classList.add('hidden');
+                document.getElementById('kelas-count-container').classList.remove('hidden');
+            }
+        }
+        
+        // Load student count with lazy loading
+        async function loadStudentCount() {
+            try {
+                const response = await getSiswa();
+                if (response.success) {
+                    document.getElementById('siswa-count').textContent = response.data.length;
+                    document.getElementById('siswa-count-skeleton').classList.add('hidden');
+                    document.getElementById('siswa-count-container').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading student count:', error);
+                document.getElementById('siswa-count').textContent = 'Error';
+                document.getElementById('siswa-count-skeleton').classList.add('hidden');
+                document.getElementById('siswa-count-container').classList.remove('hidden');
+            }
+        }
+        
+        // Load assignment count with lazy loading
+        async function loadAssignmentCount() {
+            try {
+                const response = await getTugas();
+                if (response.success) {
+                    document.getElementById('tugas-count').textContent = response.data.length;
+                    document.getElementById('tugas-count-skeleton').classList.add('hidden');
+                    document.getElementById('tugas-count-container').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading assignment count:', error);
+                document.getElementById('tugas-count').textContent = 'Error';
+                document.getElementById('tugas-count-skeleton').classList.add('hidden');
+                document.getElementById('tugas-count-container').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html> 
